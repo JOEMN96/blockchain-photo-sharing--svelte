@@ -1,10 +1,44 @@
 <script>
-	export let name;
+	let arr = [
+		{id:1,name:"osima"},
+		{id:2,name:"julian"},
+		{id:3,name:"pepe"},
+	]
+	 let name = "Joe";
+	 let clr = "green"
+	 const handleClick = () => {
+		 name = "Mon" 
+	 }
+	 const handeleIp = (e) =>{
+		 name = e.target.value
+		
+	 }
+	 $:{
+		 console.log(name);
+	  }
+
+	 $:reactive = name + clr;
 </script>
 
 <main>
-	<h1>Hello {name}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
+	<h1 style="color:{clr}" >Hello {name}!</h1>
+	<p>{reactive}</p>
+	<button  on:click={handleClick}>Click Me</button>
+	<input  on:input={handeleIp} type="text"  bind:value={name}>
+
+	{#each arr as item (item.id)}
+		<p>{item.name}</p>
+		{:else}
+			<p>No data Available</p>
+	{/each}
+
+
+	{#each arr as item (item.id)}
+		<p>{item.id}</p>
+		{:else} 
+		<p>No data</p>
+	{/each}
+
 </main>
 
 <style>
