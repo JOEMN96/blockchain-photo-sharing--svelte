@@ -39,6 +39,14 @@
 		<p>No data</p>
 	{/each}
 
+	{#if name == "Joe"}
+		<h1>Hey Joe</h1>
+		{:else if name == "mon"}
+			<p>Hi MOon</p>
+		{:else}
+		<h2>Hey GGs</h2>
+	{/if}
+
 </main>
 
 <style>
@@ -58,7 +66,7 @@
 
 	@media (min-width: 640px) {
 		main {
-			max-width: none;
+			max-width: none; 
 		}
 	}
 </style>
