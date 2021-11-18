@@ -1,4 +1,6 @@
 <script>
+	import Button from './button.svelte'
+
 	let arr = [
 		{id:1,name:"osima"},
 		{id:2,name:"julian"},
@@ -19,15 +21,16 @@
 
 	 $:reactive = name + clr;
 </script>
-
 <main>
-	<h1 style="color:{clr}" >Hello {name}!</h1>
+	<h1 style="color:{clr}" class:test={true} >Hello {name}!</h1>
 	<p>{reactive}</p>
 	<button  on:click={handleClick}>Click Me</button>
 	<input  on:input={handeleIp} type="text"  bind:value={name}>
 
 	{#each arr as item (item.id)}
 		<p>{item.name}</p>
+		<Button prop={item.name} />
+
 		{:else}
 			<p>No data Available</p>
 	{/each}
