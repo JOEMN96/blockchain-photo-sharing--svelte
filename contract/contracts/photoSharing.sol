@@ -13,7 +13,7 @@ contract  photoSharing {
           address  Imageowner;
           uint tip;
           string imgHash;
-          string desctiption;
+          string description;
      }         
      //  Declaring events to emit in future
      event ImageUploded(
@@ -23,6 +23,11 @@ contract  photoSharing {
      );
      //  Functions
      function uploadImg(string memory _imgHash,string memory _desc) public {
+
+          require(bytes(_imgHash).length > 0, "Image Hash is required");
+          require(bytes(_desc).length > 0, "Description is Required");
+          require(msg.sender != address(0x0), "Sender is required");
+
           imageCount++;
           // Creating new Images struct with data
           images[imageCount] = Image(imageCount,msg.sender,0,_imgHash,_desc);

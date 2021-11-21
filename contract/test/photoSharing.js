@@ -15,9 +15,27 @@ contract('photoSharing', () => {
     assert(res === 'Share Photos');
   });
 
-  it('should return Images', async () => {
-    await contract.uploadImg();
+  it('Add new Image', async () => {
+    let r = await contract.uploadImg('OXHASH', 'ADDING NEW IMAGE');
     let res = await contract.images(1);
-    // assert(res.desctiption == 'TEST');
+    assert(res.description == 'ADDING NEW IMAGE');
+  });
+
+  it('it should fail (Passing empty data to hash)', async () => {
+    try {
+      await contract.uploadImg('', 'ADDING NEW IMAGE');
+      assert.fail('Error Thrown');
+    } catch (err) {
+      assert.include(err.reason, 'Image Hash is required');
+    }
+  });
+
+  it('it should fail (Passing empty data to desc)', async () => {
+    try {
+      await contract.uploadImg('0X', '');
+      assert.fail('Failed');
+    } catch (error) {
+      assert.include(error.reason, 'Description is Required');
+    }
   });
 });

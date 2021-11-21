@@ -1,5 +1,5 @@
-const Migrations = artifacts.require('photoSharing');
+const PhotoSharing = artifacts.require('photoSharing');
 
 module.exports = function (deployer) {
-  deployer.deploy(Migrations);
+  deployer.deploy(PhotoSharing);
 };
