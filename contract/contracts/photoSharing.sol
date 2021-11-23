@@ -10,7 +10,7 @@ contract  photoSharing {
      //  Structs are Obj like
      struct Image {
           uint id;
-          address  Imageowner;
+          address payable Imageowner;
           uint tip;
           string imgHash;
           string description;
@@ -30,9 +30,21 @@ contract  photoSharing {
 
           imageCount++;
           // Creating new Images struct with data
-          images[imageCount] = Image(imageCount,msg.sender,0,_imgHash,_desc);
+          images[imageCount] = Image(imageCount,payable(msg.sender),0,_imgHash,_desc);
           //  Emitting Events
           emit ImageUploded(msg.sender,_imgHash,_desc);
+     }
+
+     event tipped (uint _id,address sender, string hased);
+
+     function tipOwner (uint _id) public payable {
+          Image memory _image = images[_id];
+          address payable owner = _image.Imageowner;
+          //  Transfer is fn that is located on address that is payable
+          owner.transfer(msg.value);
+          _image.tip = _image.tip + msg.value;
+          images[_id] = _image;
+          emit tipped (_id,owner,_image.description);
      }
       
 }

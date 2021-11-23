@@ -38,4 +38,13 @@ contract('photoSharing', () => {
       assert.include(error.reason, 'Description is Required');
     }
   });
+  // let image = null;
+  // before(async () => {
+  // });
+
+  it('should return images', async () => {
+    let image = await contract.images(1);
+    assert(image.imgHash == 'OXHASH');
+    assert(image.description == 'ADDING NEW IMAGE');
+  });
 });
