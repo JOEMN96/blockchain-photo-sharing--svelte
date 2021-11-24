@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity >=0.4.22 <0.9.0;
+pragma solidity >=0.5.16 <0.9.0;
 
 contract  photoSharing {
      string public name = "Share Photos";
@@ -35,16 +35,17 @@ contract  photoSharing {
           emit ImageUploded(msg.sender,_imgHash,_desc);
      }
 
-     event tipped (uint _id,address sender, string hased);
+     event tipped (uint _id,address _owner, string desc, uint tip);
 
      function tipOwner (uint _id) public payable {
+          require(_id > 0 && _id <= imageCount, "Invalid ID");
           Image memory _image = images[_id];
           address payable owner = _image.Imageowner;
           //  Transfer is fn that is located on address that is payable
           owner.transfer(msg.value);
           _image.tip = _image.tip + msg.value;
           images[_id] = _image;
-          emit tipped (_id,owner,_image.description);
+          emit tipped (_id,owner,_image.description, msg.value);
      }
       
 }
